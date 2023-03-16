@@ -1,13 +1,58 @@
-## 标签语义化
+# 前端命名规范
 
-## 样式名规则
-所有样式使用kebab-case，并通过名称能体现元素层级关系。
+## 页面局部（单页面内的）
 
-1. `p-`：页面前缀，适用于多个页面之间可能存在多个共用模块样式，但需要对全局主题做一些限定（常见于专题系列），例如`p-index`,`p-single`。
-2. `theme-`：主题风格前缀（常见于专题系列）。
-3. `v-`：视图前缀，一个项目下存在多个子视图，整个子视图的顶级容器样式前缀，例如`v-enter`,`v-dashboard`。
-4. `m-`：模块前缀，以项目主题作为第1个关键名称，例如`m-header`,`m-footer`,`m-header-title`。
-5. `c-`：全局模块前缀，仅用于公共库中的模块，例如`c-header`,`c-footer`。
-6. `w-`：全局组件前缀，仅用于公共库中的组件模块，例如`w-gallery`。
-7. `u-`：元件前缀，模块的最小单位，例如`u-title`,`u-icon`。
-8. `i-`：全局图片前缀，仅用于公共库中的字体图标或预设的自定义图标等，例如`i-app-macro`,`i-mount-10081`。
+最长限制：`prefix-title-subtitle__block-subblock`
+
+### 页面 p-
++ 一级页面 `p-aigrow`（包含视图路由）
++ aigrow 应用标识符，erp，es，sensor
++ 二级页面 `p-aigrow-gardens`（包含若干模块，本身业务上可以独立成一个页面）
++ sensor 主题标识符，insights，conf，monitor，setting
+  
+查询参数总是作用于页面内部，影响数据层面  
+以下以果园概览为例：
+
+### 模块 m-
+
+#### 布局类模块
++ 一级布局模块 `m-gardens-header` 
++ 二级布局模块 `m-gardens-header__left`（二级模块永远强绑定属于一级模块） 
++ header 布局模块标识符，container，box，block，content，footer，sidebar
+
+#### 业务类模块
++ 一级功能模块 `m-gardens-tabs`、`m-gardens-toolbar` 
++ 二级功能模块 `m-gardens-list`、`m-gardens-pagination`
++ `m-gardens-null`、`m-gradens-list__item` （二级模块永远强绑定属于一级模块）
+
+**注：模块总数属于一个页面，原则上最好扁平**
+
+### 元素 u-
++ 一级元素  `u-create`、`u-search`、`u-group`、`u-sort`
+m-setting-group （脱离举例）
++ 二级元素 `u-group-icon`、`u-item-name` 本身不再有复杂的DOM结构
+
+**注：元素总是属于一个模块**
+
+
+## 全局范围
+
+### 模块 c-
+全局共用的模块（m-），不具备一个页面中多次复用，有自己的业务逻辑
+`c-header`、`c-footer`、`c-sidebar`
+
+### 组件 w-
+全局复用的模块（w-），主要是一些功能上的，没有具体的业务
+`w-dialog`、`w-codemirror` 
+
+**注：全局模块和全局组件，总是要严格BEM规范带前缀**  
+`w-dialog__header`、`w-dialog__header-menu`
+
+## 状态
+
+### 模块模式 --status-status
+`w-dialog--warning`、`w-dialog--sucess`
+
+### 元素状态 .is-active
+`u-title.is-disabled`、`u-title.is-active`
+
